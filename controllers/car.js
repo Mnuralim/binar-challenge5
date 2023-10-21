@@ -91,14 +91,20 @@ const updateCar = async (req, res, next) => {
 
   try {
     const { file } = req;
+    const car = await Car.findByPk(id);
 
-    const split = file.originalname.split(".");
-    const ext = split[split.length - 1];
-
-    const img = await imagekit.upload({
-      file: file.buffer,
-      fileName: `IMG-CAR-${Date.now()}.${ext}`,
-    });
+    let imageUrl;
+    if (!file) {
+      imageUrl = car.image;
+    } else {
+      const split = file.originalname.split(".");
+      const ext = split[split.length - 1];
+      const img = await imagekit.upload({
+        file: file.buffer,
+        fileName: `IMG-CAR-${Date.now()}.${ext}`,
+      });
+      imageUrl = img.url;
+    }
 
     const updateCar = await Car.update(
       {
@@ -106,7 +112,7 @@ const updateCar = async (req, res, next) => {
         price,
         available,
         type,
-        image: img.url,
+        image: imageUrl,
       },
       {
         where: {
