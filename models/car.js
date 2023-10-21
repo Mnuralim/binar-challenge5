@@ -9,6 +9,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Car.hasMany(models.Activity, {
+        foreignKey: "carId",
+      });
     }
   }
   Car.init(
@@ -20,15 +23,11 @@ module.exports = (sequelize, DataTypes) => {
       },
       image: DataTypes.TEXT,
       price: DataTypes.FLOAT,
-      userId: {
-        type: DataTypes.INTEGER,
-      },
-      createdBy: DataTypes.INTEGER,
-      updatedBy: DataTypes.INTEGER,
-      deletedBy: DataTypes.INTEGER,
+      available: DataTypes.BOOLEAN,
     },
     {
       sequelize,
+      paranoid: true,
       modelName: "Car",
     }
   );

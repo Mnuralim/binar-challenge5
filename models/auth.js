@@ -9,6 +9,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Auth.belongsTo(models.User, {
+        foreignKey: "userId",
+      });
     }
   }
   Auth.init(

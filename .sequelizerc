@@ -5,7 +5,4 @@ dotenv.config();
 
 module.exports = {
   config: path.resolve("config", "database.js"),
-  "models-path": path.resolve("src", "models"),
-  "seeders-path": path.resolve("seeders"),
-  "migrations-path": path.resolve("migrations"),
 };

@@ -1,0 +1,1415 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Challenge FSW 2 Chapter 5",
+    "description": "This is our challenge",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "AUTHS",
+      "description": "This API for AUTHS resources"
+    },
+    {
+      "name": "Cars",
+      "description": "This API for CARS resources"
+    },
+    {
+      "name": "Users",
+      "description": "This API for USERS resources"
+    },
+    {
+      "name": "Activities",
+      "description": "This API for ACTIVITIES resources"
+    }
+  ],
+  "servers": [
+    {
+      "url": "http://localhost:5000/api/v1"
+    }
+  ],
+  "paths": {
+    "/auths/login": {
+      "post": {
+        "tags": ["AUTHS"],
+        "summary": "Return login api hit results for member, admin, and superadmin",
+        "description": "this API for login member, admin, superadmin",
+        "requestBody": {
+          "description": "It's the Request Body for a Successful Login",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "bagas@mail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "123456"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Login successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string",
+                          "example": "GWHUHGUAWHGUAHGIAWBGVIAHWBVIAW"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Login failed 'wrong password'",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Password don't match"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Login failed 'user not found'",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auths/member/register": {
+      "post": {
+        "tags": ["AUTHS"],
+        "summary": "Return register api hit results for member",
+        "description": "this API for register member",
+        "requestBody": {
+          "description": "It's the Request Body for a Successful member register",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "bagas@mail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "123456"
+                  },
+                  "confirmPassword": {
+                    "type": "string",
+                    "example": "123456"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "bagas"
+                  },
+                  "age": {
+                    "type": "integer",
+                    "example": 20
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": "banyumas"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful register",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "register successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "register failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User email already taken"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auths/admin/register": {
+      "post": {
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "tags": ["AUTHS"],
+        "summary": "Return register api hit results for admin",
+        "description": "this API for register admin",
+        "requestBody": {
+          "description": "It's the Request Body for a Successful admin register",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "bagas@mail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "123456"
+                  },
+                  "confirmPassword": {
+                    "type": "string",
+                    "example": "123456"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "bagas"
+                  },
+                  "age": {
+                    "type": "integer",
+                    "example": 20
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": "banyumas"
+                  },
+                  "role": {
+                    "type": "string",
+                    "example": "admin"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful register",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "register successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "register failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Admin email already taken"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "only superadmin have this access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You don't have access, your role is not superadmin"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auths/me": {
+      "get": {
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "tags": ["AUTHS"],
+        "summary": "Return current user login",
+        "description": "this API for check current user login",
+        "responses": {
+          "200": {
+            "description": "Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "example": 1
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "bagas"
+                            },
+                            "role": {
+                              "type": "string",
+                              "example": "admin"
+                            },
+                            "address": {
+                              "type": "string",
+                              "example": "jepang"
+                            },
+                            "age": {
+                              "type": "integer",
+                              "example": 20
+                            },
+                            "Auth": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer",
+                                  "example": 1
+                                },
+                                "email": {
+                                  "type": "string",
+                                  "example": "bagas@mail.com"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "check token failed,login and token are required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "no token"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cars": {
+      "post": {
+        "tags": ["Cars"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return the results of API cars hits",
+        "description": "this is the API for creating cars",
+        "requestBody": {
+          "description": "There's a Request Body for created Car",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "available": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "price": {
+                    "type": "integer",
+                    "example": 20000
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "small"
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully create car",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Success added new car"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "car": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "example": 1
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "avanza"
+                            },
+                            "price": {
+                              "type": "integer",
+                              "example": 90000
+                            },
+                            "available": {
+                              "type": "boolean",
+                              "example": true
+                            },
+                            "type": {
+                              "type": "string",
+                              "example": "small"
+                            },
+                            "image": {
+                              "type": "string",
+                              "example": "image.com"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "created car failed, only admin & superadmin can to do it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You don't have access, your role is not superadmin or admin"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Cars"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return the results of API cars hits",
+        "description": "this is the API for show all cars",
+
+        "responses": {
+          "200": {
+            "description": "Successfully show all cars data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "cars": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "example": 1
+                              },
+                              "name": {
+                                "type": "string",
+                                "example": "avanza"
+                              },
+                              "type": {
+                                "type": "string",
+                                "example": "small"
+                              },
+                              "price": {
+                                "type": "integer",
+                                "example": 90000
+                              },
+                              "available": {
+                                "type": "boolean",
+                                "example": true
+                              },
+                              "image": {
+                                "type": "string",
+                                "example": "image.com"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Login required for this endpoint access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "no token"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cars/{id}": {
+      "patch": {
+        "tags": ["Cars"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return the results of API cars hits",
+        "description": "this is the API for updating cars",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "There's a Request Body for update Car",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "available": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "price": {
+                    "type": "integer",
+                    "example": 20000
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "small"
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully update car",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Success updated car"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "updated car failed, only admin & superadmin can to do it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You don't have access, your role is not superadmin or admin"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "update car failed 'car not found'",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Car not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Cars"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return the results of API cars hits",
+        "description": "this is the API for show single car data",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully show car data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "car": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "example": 1
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "avanza"
+                            },
+                            "type": {
+                              "type": "string",
+                              "example": "small"
+                            },
+                            "price": {
+                              "type": "integer",
+                              "example": 90000
+                            },
+                            "available": {
+                              "type": "boolean",
+                              "example": true
+                            },
+                            "image": {
+                              "type": "string",
+                              "example": "image.com"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Login required for this endpoint access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "no token"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Cars"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return the results of API cars hits",
+        "description": "this is the API for delete car",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully delete car data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Success deleted car"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "deleted car failed, only admin & superadmin can to do it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You don't have access, your role is not superadmin or admin"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "delete car failed 'car not found'",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Car not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": ["Users"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return the results of API users hits",
+        "description": "this is the API for show all users",
+
+        "responses": {
+          "200": {
+            "description": "Successfully show all users data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "users": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "example": 1
+                              },
+                              "name": {
+                                "type": "string",
+                                "example": "bagas"
+                              },
+                              "role": {
+                                "type": "string",
+                                "example": "admin"
+                              },
+                              "address": {
+                                "type": "string",
+                                "example": "cilacap"
+                              },
+                              "age": {
+                                "type": "integer",
+                                "example": 20
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Login required for this endpoint access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "no token"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "patch": {
+        "tags": ["Users"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return the results of API users hits",
+        "description": "this is the API for updating user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "There's a Request Body for update user",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "bagas"
+                  },
+                  "age": {
+                    "type": "integer",
+                    "example": 20
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": "jepang"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully update user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Success updated user"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "updated user failed, only admin & superadmin can to do it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You don't have access, your role is not superadmin or admin"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "update user failed 'users not found'",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Users"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return the results of API users hits",
+        "description": "this is the API for show single user data",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully show user data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "example": 1
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "avanza"
+                            },
+                            "role": {
+                              "type": "string",
+                              "example": "member"
+                            },
+                            "address": {
+                              "type": "string",
+                              "example": "tegal"
+                            },
+                            "age": {
+                              "type": "integer",
+                              "example": 23
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Login required for this endpoint access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "no token"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Users"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return the results of API users hits",
+        "description": "this is the API for delete user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully delete user data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Success deleted user"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "deleted user failed, only admin & superadmin can to do it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You don't have access, your role is not superadmin or admin"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "delete user failed 'user not found'",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/activities": {
+      "get": {
+        "tags": ["Activities"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return the results of API activities hits",
+        "description": "this is the API for show all activities",
+
+        "responses": {
+          "200": {
+            "description": "Successfully show all activities data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "activities": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "example": 1
+                              },
+                              "userId": {
+                                "type": "integer",
+                                "example": 1
+                              },
+                              "carId": {
+                                "type": "integer",
+                                "example": 1
+                              },
+                              "action": {
+                                "type": "string",
+                                "example": "create"
+                              },
+                              "User": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "integer",
+                                    "example": 1
+                                  },
+                                  "name": {
+                                    "type": "string",
+                                    "example": "bagas"
+                                  },
+                                  "role": {
+                                    "type": "string",
+                                    "example": "admin"
+                                  },
+                                  "address": {
+                                    "type": "string",
+                                    "example": "sampang"
+                                  },
+                                  "age": {
+                                    "type": "integer",
+                                    "example": 20
+                                  }
+                                }
+                              },
+                              "Car": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "integer",
+                                    "example": 1
+                                  },
+                                  "name": {
+                                    "type": "string",
+                                    "example": "avanza"
+                                  },
+                                  "type": {
+                                    "type": "string",
+                                    "example": "small"
+                                  },
+                                  "price": {
+                                    "type": "integer",
+                                    "example": 90000
+                                  },
+                                  "available": {
+                                    "type": "boolean",
+                                    "example": true
+                                  },
+                                  "image": {
+                                    "type": "string",
+                                    "example": "image.com"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "show activities failed, only admin & superadmin can to do it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You don't have access, your role is not superadmin or admin"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerToken": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

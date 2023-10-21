@@ -15,9 +15,7 @@ module.exports = {
       password: {
         type: Sequelize.STRING,
       },
-      userId: {
-        type: Sequelize.INTEGER,
-      },
+      userId: Sequelize.INTEGER,
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
