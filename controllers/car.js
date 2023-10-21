@@ -1,4 +1,6 @@
+const { Op } = require("sequelize");
 const imagekit = require("../libs/imagekit");
+
 const { Car, Activity } = require("../models");
 const ApiError = require("../utils/apiError");
 
@@ -43,7 +45,7 @@ const createCar = async (req, res, next) => {
 };
 
 const getAllCars = async (req, res, next) => {
-  const { name, available, category } = req.query;
+  const { name, available, type, price } = req.query;
   const condition = {};
 
   if (name) {
@@ -52,8 +54,12 @@ const getAllCars = async (req, res, next) => {
   if (available) {
     condition.available = available;
   }
-  if (category) {
-    condition.category = category;
+  if (type) {
+    condition.type = type;
+  }
+
+  if (price) {
+    condition.price = price;
   }
   try {
     const cars = await Car.findAll({ where: condition });

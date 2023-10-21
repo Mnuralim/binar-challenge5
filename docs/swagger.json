@@ -546,6 +546,40 @@
         ],
         "summary": "Return the results of API cars hits",
         "description": "this is the API for show all cars",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Filter cars by name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Filter cars by type",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "price",
+            "in": "query",
+            "description": "Filter cars by price",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "available",
+            "in": "query",
+            "description": "Filter cars by available",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
 
         "responses": {
           "200": {
